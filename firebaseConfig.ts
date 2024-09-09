@@ -1,6 +1,8 @@
 import { initializeApp, FirebaseOptions } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, isSupported } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 
+// Google Firebase application configuration object
 const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
@@ -11,7 +13,23 @@ const firebaseConfig: FirebaseOptions = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
 };
 
+// Initializes Google Firebase application with the provided configuration
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
-export { app, analytics };
+// Checks if Google Analytics is supported in the current environment
+let analytics;
+// If Google Analytics is supported, it is then initialized
+isSupported().then((supported) => {
+  if (supported) {
+    analytics = getAnalytics(app);
+  }
+// Otherwise, displays an error message
+}).catch((error) => {
+  console.error("Google Analytics not supported:", error);
+});
+
+// Initializes Firebase Authentication
+const auth = getAuth(app);
+
+// Exports the initialized instances
+export { app, analytics, auth };
