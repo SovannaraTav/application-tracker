@@ -1,6 +1,7 @@
 import { initializeApp, FirebaseOptions } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // Google Firebase application configuration object
 const firebaseConfig: FirebaseOptions = {
@@ -31,5 +32,8 @@ isSupported().then((supported) => {
 // Initializes Firebase Authentication
 const auth = getAuth(app);
 
+// Initializes Cloud Firestore
+const db = getFirestore(app);
+
 // Exports the initialized instances
-export { app, analytics, auth };
+export { app, analytics, auth, db };
