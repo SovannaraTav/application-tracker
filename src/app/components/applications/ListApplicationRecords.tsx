@@ -38,14 +38,22 @@ const ListApplicationRecords: React.FC = () => {
             {applicationRecords.map(app => (
                 <div key={app.id}>
                     {editingId === app.id ? (
-                        // Renders if the application record and its associated data are being edited
+                        // Renders this component if the application record and its associated data are being edited
                         <UpdateApplicationRecord id={app.id!} initialData={app} />
                     ) : (
                         // Renders the application record and its associated data if not being edited
                         <>
-                            <h3>{app.position}</h3>
-                            <p>{app.location}</p>
-                            <p>{app.salary}</p>
+                            <h3>Position: {app.position}</h3>
+                            <p>Location: {app.location}</p>
+                            <p>Salary: {app.salary}</p>
+                            
+                            <p>Files:</p>
+                            {app.fileUrls && app.fileUrls.map((url, index) => (
+                               <div key={index}>
+                                <a href={url} target="_blank" rel="noopener noreferrer">View File {index + 1}</a>
+                               </div> 
+                            ))}
+
                             <button onClick={() => handleEdit(app.id!)}>Edit</button>
                             <button onClick={() => handleDelete(app.id!)}>Delete</button>
                         </>
