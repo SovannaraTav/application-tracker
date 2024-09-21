@@ -23,7 +23,7 @@ const SignUpForm: React.FC = () => {
         try {
             // Attempts to create a new account for the user with their provided email and password
             await createUserWithEmailAndPassword(auth, email, password);
-            // Clears out state variables and redirects the user to a different page on success
+            // Clears out state variables and redirects the user to the landing page on success
             setEmail("");
             setPassword("");
             setConfirmPassword("");

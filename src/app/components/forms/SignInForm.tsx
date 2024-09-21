@@ -18,7 +18,7 @@ const SignInForm: React.FC = () => {
         try {
             // Attempts to sign in the user with their provided email and password
             await signInWithEmailAndPassword(auth, email, password);
-            // Clears out state variables and redirects the user to a different page on success
+            // Clears out state variables and redirects the user to the home page on success
             setEmail("");
             setPassword("");
             setError(null);
@@ -42,7 +42,7 @@ const SignInForm: React.FC = () => {
         try {
             // Attempts to sign in the user with their Google account
             await signInWithPopup(auth, provider);
-            // Redirects the user to a different page on success
+            // Redirects the user to the home page on success
             router.push("/home");
         }
         catch (e) {
@@ -54,7 +54,7 @@ const SignInForm: React.FC = () => {
 
     // Function to redirect the user to the sign up page if they don't have account beforehand
     const handleRedirectToSignUp = () => {
-        router.push("/authentication/signup");
+        router.push("/signup");
     }
 
     return (

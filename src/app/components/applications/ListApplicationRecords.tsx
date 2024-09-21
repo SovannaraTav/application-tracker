@@ -3,20 +3,24 @@ import React, { useState, useEffect } from "react";
 import { getApplicationRecords, deleteApplicationRecord } from "@/app/services/firestoreService";
 import UpdateApplicationRecord from "./UpdateApplicationRecord";
 import { ApplicationRecordData } from "@/app/types/interfaces";
+import { useAuth } from "../authentication/AuthContext";
 
 const ListApplicationRecords: React.FC = () => {
     // State variables
+    const { currentUser } = useAuth();
     const [applicationRecords, setApplicationRecords] = useState<ApplicationRecordData[]>([]);
     const [editingId, setEditingId] = useState<string | null>(null);
 
-    // Fetches all application records and its associated data when the component mounts
+    // Fetches all application records and its associated data of the current user when the component mounts
     useEffect(() => {
-        const fetchData = async () => {
-            const data = await getApplicationRecords();
-            setApplicationRecords(data);
-        };
-        fetchData();
-    }, []);
+        if (currentUser) {
+            const fetchData = async () => {
+                const data = await getApplicationRecords();
+                setApplicationRecords(data);
+            };
+            fetchData();
+        }
+    }, [currentUser]);
 
     // Function to handle the deletion of an application record
     const handleDelete = async (id: string) => {

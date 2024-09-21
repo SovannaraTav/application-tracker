@@ -12,7 +12,7 @@ const SignOutButton: React.FC = () => {
         try {
             // Attempts to sign out the user of their account
             await signOut(auth);    
-            // Redirects the user to a different page on success
+            // Redirects the user to the landing page on success
             router.push("/");
         }
         catch (e) {

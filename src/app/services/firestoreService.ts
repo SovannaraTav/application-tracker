@@ -1,9 +1,6 @@
 import { doc, collection, addDoc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
+import { auth, db } from "../../../firebaseConfig";
 import { ApplicationRecordData } from "../types/interfaces";
-
-// Reference to the "applications" collection in Cloud Firestore
-const applicationCollection = collection(db, "applications");
 
 /*
 Function to handle the process of creating a new application record and adding its associated 
@@ -11,8 +8,17 @@ data to Cloud Firestore
 */
 export const createApplicationRecord = async (data: ApplicationRecordData) => {
     try {
+        // Obtained the currently authenticated user
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User not authenticated.");
+        }
+        
+        // Reference to the user's applications collection in Cloud Firestore
+        const userCollection = collection(db, `users/${user.uid}/applications`);
+
         // Adds the new document with its associated data to the collection and returns its ID
-        const docRef = await addDoc(applicationCollection, data);
+        const docRef = await addDoc(userCollection, data);
         return docRef.id;
     }
     catch (error) {
@@ -27,8 +33,17 @@ from Cloud Firestore
 */
 export const getApplicationRecords = async (): Promise<ApplicationRecordData[]> => {
     try {
+        // Obtained the currently authenticated user
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User not authenticated.");
+        }
+
+        // Reference to the user's applications collection in Cloud Firestore
+        const userCollection = collection(db, `users/${user.uid}/applications`);
+
         // Retrieves all documents and its associated data from the collection
-        const querySnapshot = await getDocs(applicationCollection);
+        const querySnapshot = await getDocs(userCollection);
         // Maps the documents to an array of ApplicationRecordData objects
         return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as ApplicationRecordData[];
     }
@@ -45,8 +60,15 @@ record stored in Cloud Firestore
 */
 export const updateApplicationRecord = async (id: string, data: ApplicationRecordData) => {
     try {
-        // Retrieves the desired document from the collection and updates its associated data
-        const docRef = doc(db, "applications", id);
+        // Obtained the currently authenticated user
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User not authenticated.");
+        }
+
+        // Reference to the desired document to update in the user's applications collection in Cloud Firestore
+        const docRef = doc(db, `users/${user.uid}/applications`, id);
+        // Updates the associated data of the desired document
         await updateDoc(docRef, data);
     }
     catch (error) {
@@ -61,8 +83,15 @@ record stored in Cloud Firestore
 */
 export const deleteApplicationRecord = async (id: string) => {
     try {
-        // Retrieves the desired document from the collection and deletes its associated data
-        const docRef = doc(db, "applications", id);
+        // Obtained the currently authenticated user
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User not authenticated.");
+        }
+
+        // Reference to the desired document to delete in the user's applications collection in Cloud Firestore
+        const docRef = doc(db, `users/${user.uid}/applications`, id);
+        // Deletes the associated data of the desired document
         await deleteDoc(docRef);
     }
     catch (error) {

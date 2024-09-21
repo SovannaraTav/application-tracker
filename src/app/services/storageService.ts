@@ -1,11 +1,17 @@
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
-import { storage } from "../../../firebaseConfig";
+import { auth, storage } from "../../../firebaseConfig";
 
 // Function to handle the process of uploading a file to Cloud Storage
 export const uploadFile = async (file: File, path: string): Promise<string> => {
     return new Promise((resolve, reject) => {
+        // Obtained the currently authenticated user
+        const user = auth.currentUser;
+        if (!user) {
+            throw new Error("User not authenticated.");
+        }
+
         // Creates a reference to the file location in Cloud Storage
-        const storageRef = ref(storage, path);
+        const storageRef = ref(storage, `users/${user.uid}/${path}`);
         // Starts the file upload process
         const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -30,6 +36,12 @@ export const uploadFile = async (file: File, path: string): Promise<string> => {
 
 // Function to handle the process of deleting a file from Cloud Storage
 export const deleteFile = async (fileUrl: string) => {
+    // Obtained the currently authenticated user
+    const user = auth.currentUser;
+    if (!user) {
+        throw new Error("User not authenticated.");
+    }
+
     // Creates a reference to the file location in Cloud Storage
     const fileRef = ref(storage, fileUrl);
     // Deletes the corresponding file from Cloud Storage
