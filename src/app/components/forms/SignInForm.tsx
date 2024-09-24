@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { AuthError, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } 
     from "firebase/auth";
 import { auth } from "../../../../firebaseConfig";
+import "../../styles/signInFormStyle.css";
 
 const SignInForm: React.FC = () => {
     // State variables
@@ -28,10 +29,13 @@ const SignInForm: React.FC = () => {
             // Handles any authentication errors for this first method of signing in
             const error = e as AuthError;
             if (error.code === "auth/invalid-credential") {
-                setError("An account with this email does not exist or invalid credentials provided.");
+                setError("An account with this email does not exist or invalid credentials provided. Please try again.");
+            }
+            else if (error.code === "auth/popup-closed-by-user") {
+                setError("Google popup window sign in error. Please try again.");
             }
             else {
-                setError(error.message);
+                setError("Sign in error. Please try again.");
             }
         }
     };
@@ -58,42 +62,55 @@ const SignInForm: React.FC = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSignIn}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-
-                {/*Displays error message if any occur */}
-                {error && <p>{error}</p>}
-
-                <button type="submit">Sign In</button>
-            </form>
-
-            <div>
-                <button onClick={handleGoogleSignIn}>Sign In with Google</button>
+        <div className="flex">
+            <div className="info-container">
+                <h1 className="info-container-heading">Application Record Tracker</h1>
+                <ol className="info-container-list">
+                    <li className="info-container-item">A simple website application tool to create, view, edit, and delete application records for keeping track of jobs and internships you've applied to.</li>
+                    <li className="info-container-item">Record and keep track of information associated with each job and internship you've applied to such as position, location, salary, and many more.</li>
+                    <li className="info-container-item">Upload, view, and remove files and images associated with each job and internship you've applied to.</li>
+                </ol>
             </div>
-            
-            <div>
-                <button onClick={handleRedirectToSignUp}>Create New Account</button>
+
+            <div className="signin-form-outer-container">
+                <form className="signin-form-inner-container" onSubmit={handleSignIn}>
+                    <div>
+                        <label className="signin-form-label" htmlFor="email">Email:</label>
+                        <input
+                            className="signin-form-input"
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="signin-form-label" htmlFor="password">Password:</label>
+                        <input
+                            className="signin-form-input"
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    {/*Displays error message if any occur */}
+                    {error && <p className="signin-form-error">{error}</p>}
+
+                    <button className="signin-form-button-1" type="submit">Sign In</button>
+
+                    <div>
+                        <button className="signin-form-button-2" onClick={handleGoogleSignIn}>Sign In with Google</button>
+                    </div>
+
+                    <div>
+                        <button className="signin-form-button-2" onClick={handleRedirectToSignUp}>Create New Account</button>
+                    </div>
+                </form>
             </div>
         </div>
     );

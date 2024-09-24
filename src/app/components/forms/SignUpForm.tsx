@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AuthError, createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../../firebaseConfig";
+import "../../styles/signUpFormStyle.css";
 
 const SignUpForm: React.FC = () => {
     // State variables
@@ -40,52 +41,61 @@ const SignUpForm: React.FC = () => {
                 setError("Invalid password. Must contain at least 6 characters.");
             }
             else {
-                setError(error.message);
+                setError("Sign up error. Please try again.");
             }
         }
     };
 
     return (
         <div>
-            <form onSubmit={handleSignUp}>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
+            <div className="signup-container">
+                <h1 className="signup-container-heading">Create New Account</h1>
+            </div>
 
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
+            <div className="signup-form-outer-container">
+                <form className="signup-form-inner-container" onSubmit={handleSignUp}>
+                    <div>
+                        <label className="signup-form-label" htmlFor="email">Email:</label>
+                        <input
+                            className="signup-form-input"
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </div>
+                    <div>
+                        <label className="signup-form-label" htmlFor="password">Password:</label>
+                        <input
+                            className="signup-form-input"
+                            type="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                {/*Displays error message if any occur */}
-                {error && <p>{error}</p>}
+                    <div>
+                        <label className="signup-form-label" htmlFor="confirmPassword">Confirm Password:</label>
+                        <input
+                            className="signup-form-input"
+                            type="password"
+                            id="confirmPassword"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                <button type="submit">Sign Up</button>
-            </form>
+                    {/*Displays error message if any occur */}
+                    {error && <p className="signup-form-error">{error}</p>}
+
+                    <button className="signup-form-button" type="submit">Sign Up</button>
+                </form>
+            </div>
         </div>
     );
 };
