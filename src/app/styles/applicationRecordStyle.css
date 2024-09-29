@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .container {
+        @apply mx-auto p-4 max-w-lg;
+    }
+    
+    .form-container {
+        @apply bg-gray-200 shadow-md rounded-lg p-6 mb-4;
+    }
+    
+    .form-group {
+        @apply mb-6;
+    }
+    
+    .form-label {
+        @apply block font-bold mb-1;
+    }
+    
+    .form-input, .form-textarea {
+        @apply border rounded w-full py-2 px-2 leading-tight;
+    }
+    
+    .form-textarea {
+        @apply h-32 resize-none;
+    }
+    
+    .form-button, .edit-button {
+        @apply bg-blue-800 text-white hover:bg-blue-950 focus:bg-blue-950 font-bold py-2 px-4 rounded;
+    }
+    
+    .record {
+        @apply bg-gray-50 shadow-md rounded-lg p-6 mb-4;
+    }
+    
+    .record-header {
+        @apply flex justify-between items-center;
+    }
+    
+    .record-title {
+        @apply text-xl font-bold;
+    }
+    
+    .record-body {
+        @apply space-y-2;
+    }
+    
+    .record-footer {
+        @apply flex justify-end space-x-2 mt-4;
+    }
+
+    .delete-button {
+        @apply bg-red-700 hover:bg-red-900 focus:bg-red-900 text-white font-bold p-2 px-4 rounded;
+    }
+    
+    .file-link {
+        @apply text-blue-800 hover:underline mr-4;
+    }
+}

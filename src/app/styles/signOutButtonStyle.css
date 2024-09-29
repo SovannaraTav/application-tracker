@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .sign-out-container {
+        @apply flex justify-end p-4;
+    }
+
+    .sign-out-button {
+        @apply bg-red-700 hover:bg-red-900 focus:bg-red-900 text-white font-bold p-2 px-4 rounded;
+    }
+}

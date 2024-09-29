@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .loading-container {
+        @apply flex items-center justify-center min-h-screen;
+    }
+
+    .loading-spinner {
+        @apply animate-spin rounded-full h-16 w-16 border-t-4 border-blue-800;
+    }
+
+    .loading-text {
+        @apply text-xl font-bold ml-8;
+    }
+}

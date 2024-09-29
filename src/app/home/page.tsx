@@ -8,10 +8,9 @@ import WithAuth from "../components/authentication/WithAuth";
 const Home: React.FC = () => {
     return (
         <div>
-            <h1>Home Page</h1>
+            <SignOutButton />
             <CreateApplicationRecord />
             <ListApplicationRecords />
-            <SignOutButton />
         </div>
     );
 };

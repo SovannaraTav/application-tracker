@@ -4,6 +4,7 @@ import { getApplicationRecords, deleteApplicationRecord } from "@/app/services/f
 import UpdateApplicationRecord from "./UpdateApplicationRecord";
 import { ApplicationRecordData } from "@/app/types/interfaces";
 import { useAuth } from "../authentication/AuthContext";
+import "../../styles/applicationRecordStyle.css";
 
 const ListApplicationRecords: React.FC = () => {
     // State variables
@@ -38,28 +39,40 @@ const ListApplicationRecords: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="container">
             {applicationRecords.map(app => (
-                <div key={app.id}>
+                <div key={app.id} className="record">
                     {editingId === app.id ? (
                         // Renders this component if the application record and its associated data are being edited
                         <UpdateApplicationRecord id={app.id!} initialData={app} />
                     ) : (
                         // Renders the application record and its associated data if not being edited
                         <>
-                            <h3>Position: {app.position}</h3>
-                            <p>Location: {app.location}</p>
-                            <p>Salary: {app.salary}</p>
-                            
-                            <p>Files:</p>
-                            {app.fileUrls && app.fileUrls.map((url, index) => (
-                               <div key={index}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">View File {index + 1}</a>
-                               </div> 
-                            ))}
-
-                            <button onClick={() => handleEdit(app.id!)}>Edit</button>
-                            <button onClick={() => handleDelete(app.id!)}>Delete</button>
+                            <div className="record-header">
+                                <h3 className="record-title">{app.position} @ {app.company}</h3>
+                                <div className="record-footer">
+                                    <button className="edit-button" onClick={() => handleEdit(app.id!)}>Edit</button>
+                                    <button className="delete-button" onClick={() => handleDelete(app.id!)}>Delete</button>
+                                </div>
+                            </div>
+                            <div className="record-body">
+                                <p><strong>Position Type:</strong> {app.positionType}</p>
+                                <p><strong>Source</strong>: {app.source}</p>
+                                <p><strong>Location</strong>: {app.location}</p>
+                                <p><strong>Salary</strong>: {app.salary}</p>
+                                <p><strong>Description:</strong> {app.description}</p>
+                                <p><strong>Skills Required:</strong> {app.skillsRequired}</p>
+                                <p><strong>Benefits:</strong> {app.benefits}</p>
+                                <p><strong>Date Applied:</strong> {app.dateApplied}</p>
+                                <p><strong>Application Deadline:</strong> {app.applicationDeadline}</p>
+                                <p><strong>Application Status:</strong> {app.applicationStatus}</p>
+                                <p><strong>Files:</strong></p>
+                                {app.fileUrls && app.fileUrls.map((url, index) => (
+                                    <div key={index}>
+                                        <a href={url} target="_blank" rel="noopener noreferrer" className="file-link">View File {index + 1}</a>
+                                    </div>
+                                ))}
+                            </div>
                         </>
                     )}
                 </div>

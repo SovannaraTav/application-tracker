@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../firebaseConfig";
+import "../../styles/signOutButtonStyle.css";
 
 const SignOutButton: React.FC = () => {
     const router = useRouter();
@@ -22,8 +23,8 @@ const SignOutButton: React.FC = () => {
     };
 
     return (
-        <div>
-            <button onClick={handleSignOut}>Sign Out</button>
+        <div className="sign-out-container">
+            <button className="sign-out-button" onClick={handleSignOut}>Sign Out</button>
         </div>
     );
 };

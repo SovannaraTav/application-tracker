@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "./AuthContext";
+import "../../styles/loadingStyle.css"
 
 // Higher-order component to wrap another component with authentication check
 const WithAuth = (WrappedComponent: React.FC) => {
@@ -19,15 +20,22 @@ const WithAuth = (WrappedComponent: React.FC) => {
                     router.push("/");
                 }
                 else {
-                    // Sets the loading state to false if the user is authenticated
-                    setIsLoading(false);
+                    // Sets the loading state to false if the user is authenticated after 2 seconds
+                    setTimeout(() => {
+                        setIsLoading(false);
+                    }, 2000);
                 }
             }
         }, [currentUser, loading, router]);
 
         // Displays a loading message while checking the authentication status of the user
         if (isLoading) {
-            return <div>Loading...</div>;
+            return (
+                <div className="loading-container">
+                    <div className="loading-spinner"></div>
+                    <p className="loading-text">Loading...</p>
+                </div>
+            );
         }
 
         // Renders the wrapped component with its props if the user is authenticated

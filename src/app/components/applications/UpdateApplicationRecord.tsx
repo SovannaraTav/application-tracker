@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { updateApplicationRecord } from "@/app/services/firestoreService";
 import { uploadFile, deleteFile } from "@/app/services/storageService";
 import { ApplicationRecordData } from "@/app/types/interfaces";
+import "../../styles/applicationRecordStyle.css";
 
 const UpdateApplicationRecord: React.FC<{ id: string, initialData: ApplicationRecordData}> = ({ id, initialData }) => {
     // State variables
@@ -9,7 +10,7 @@ const UpdateApplicationRecord: React.FC<{ id: string, initialData: ApplicationRe
     const [files, setFiles] = useState<FileList | null>(null);
 
     // Function to handle input changes and update the form data
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
@@ -49,19 +50,81 @@ const UpdateApplicationRecord: React.FC<{ id: string, initialData: ApplicationRe
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input name="position" value={formData.position} onChange={handleChange} placeholder="Position" />
-                <input name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
-                <input name="salary" type="number" value={formData.salary} onChange={handleChange} placeholder="Salary" />
-                <input type="file" multiple onChange={handleFileChange} />
+        <div className="container">
+            <form className="form-container" onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label className="form-label" htmlFor="position">Position</label>
+                    <input className="form-input" name="position" value={formData.position} onChange={handleChange} placeholder="Position" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="positionType">Position Type</label>
+                    <input className="form-input" name="positionType" value={formData.positionType} onChange={handleChange} placeholder="Position Type" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="company">Company</label>
+                    <input className="form-input" name="company" value={formData.company} onChange={handleChange} placeholder="Company" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="source">Source</label>
+                    <input className="form-input" name="source" value={formData.source} onChange={handleChange} placeholder="Source" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="location">Location</label>
+                    <input className="form-input" name="location" value={formData.location} onChange={handleChange} placeholder="Location" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="salary">Salary</label>
+                    <input className="form-input" name="salary" type="number" value={formData.salary} onChange={handleChange} placeholder="Salary" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="description">Description</label>
+                    <textarea className="form-textarea" name="description" value={formData.description || ""} onChange={handleChange} placeholder="Description"></textarea>
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="skillsRequired">Skills Required</label>
+                    <textarea className="form-textarea" name="skillsRequired" value={formData.skillsRequired || ""} onChange={handleChange} placeholder="Skills Required"></textarea>
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="benefits">Benefits</label>
+                    <textarea className="form-textarea" name="benefits" value={formData.benefits || ""} onChange={handleChange} placeholder="Benefits"></textarea>
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="dateApplied">Date Applied</label>
+                    <input className="form-input" name="dateApplied" type="date" value={formData.dateApplied || ""} onChange={handleChange} placeholder="Date Applied" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="applicationDeadline">Application Deadline</label>
+                    <input className="form-input" name="applicationDeadline" type="date" value={formData.applicationDeadline || ""} onChange={handleChange} placeholder="Application Deadline" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="applicationStatus">Application Status</label>
+                    <input className="form-input" name="applicationStatus" value={formData.applicationStatus || ""} onChange={handleChange} placeholder="Application Status" />
+                </div>
+
+                <div className="form-group">
+                    <label className="form-label" htmlFor="files">Files</label>
+                    <input className="form-input" type="file" multiple onChange={handleFileChange} />
+                </div>
+
                 {formData.fileUrls && formData.fileUrls.map((url, index) => (
-                    <div key={index}>
-                        <a href={url} target="_blank" rel="noopener noreferrer">View File {index + 1}</a>
-                        <button type="button" onClick={() => handleFileDelete(url)}>Remove</button>
+                    <div key={index} className="form-group">
+                        <a href={url} target="_blank" rel="noopener noreferrer" className="file-link">View File {index + 1}</a>
+                        <button type="button" className="delete-button" onClick={() => handleFileDelete(url)}>Remove</button>
                     </div> 
                 ))}
-                <button type="submit">Update</button>
+                
+                <button className="form-button" type="submit">Update</button>
             </form>
         </div>
     );
