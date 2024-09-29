@@ -1,4 +1,20 @@
+# Application Record Tracker
+## Personal Project Description
+This personal website application project was meant to allow users to create, view, edit, and delete application records for keeping 
+track of jobs and internships they've applied to such as the position, company, location, salary, and many more. 
+
+In addition, users can upload, view, and remove files and images associated with each job and internship they've applied to such as 
+screenshots of the job description and skills required, their resume file, and many more.
+
+## Tools and Technologies
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+Additional front- and back-end tools and technologies for this personal web development project include:
+1) JavaScript/TypeScript.
+2) React.
+3) HTML and Tailwind CSS.
+4) Google Firebase services such as Firebase Authentication, Cloud Storage, NoSQL Cloud Firestore, and Google Analytics.
+5) Vercel cloud platform.
 
 ## Getting Started
 
