@@ -66,9 +66,9 @@ const SignInForm: React.FC = () => {
             <div className="info-container">
                 <h1 className="info-container-heading">Application Record Tracker</h1>
                 <ol className="info-container-list">
-                    <li className="info-container-item">A personal website application project to allow users to create, view, edit, and delete application records for keeping track of jobs and internships they've applied to.</li>
-                    <li className="info-container-item">Allow users to record and keep track of information associated with each job and internship they've applied to such as the position, company, location, salary, and many more.</li>
-                    <li className="info-container-item">Allow users to also upload, view, and remove files and images associated with each job and internship they've applied to such as screenshots of the job description and skills required, their resume file, and many more.</li>
+                    <li className="info-container-item">A personal website application project to allow users to create, view, edit, and delete application records for keeping track of jobs and internships they&apos;ve applied to.</li>
+                    <li className="info-container-item">Allow users to record and keep track of information associated with each job and internship they&apos;ve applied to such as the position, company, location, salary, and many more.</li>
+                    <li className="info-container-item">Allow users to also upload, view, and remove files and images associated with each job and internship they&apos;ve applied to such as screenshots of the job description and skills required, their resume file, and many more.</li>
                 </ol>
             </div>
 

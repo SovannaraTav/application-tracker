@@ -6,7 +6,8 @@ import "../../styles/loadingStyle.css"
 
 // Higher-order component to wrap another component with authentication check
 const WithAuth = (WrappedComponent: React.FC) => {
-    return (props: any) => {
+    // Component to handle authentication logic
+    const WithAuthComponent = (props: any) => {
         // Obtained the current user and loading status from AuthContext
         const { currentUser, loading } = useAuth();
         const router = useRouter();
@@ -41,6 +42,11 @@ const WithAuth = (WrappedComponent: React.FC) => {
         // Renders the wrapped component with its props if the user is authenticated
         return <WrappedComponent {...props} />;
     };
+
+    // Sets a display name for the higher-order component to allow better debugging
+    WithAuthComponent.displayName = `WithAuth(${WrappedComponent.displayName || WrappedComponent.name || "Component"})`;
+
+    return WithAuthComponent;
 };
 
 export default WithAuth;
